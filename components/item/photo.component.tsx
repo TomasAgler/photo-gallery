@@ -1,5 +1,5 @@
 import { Photo } from '../../types/database';
-import Image, { ImageProps } from 'next/image';
+import Image, { ImageProps } from 'next/future/image';
 import { useTranslation } from 'next-i18next';
 
 type GalleryPhotoProps = Omit<
