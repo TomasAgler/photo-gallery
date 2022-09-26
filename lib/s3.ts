@@ -14,7 +14,7 @@ export const getJsonObject: <T>(key: string) => Promise<T | undefined> = async <
   key: string,
 ) => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: key,
   };
   try {
@@ -28,7 +28,7 @@ export const getJsonObject: <T>(key: string) => Promise<T | undefined> = async <
 
 export const openDatabase = async () => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: '_database.json',
   };
   try {
@@ -45,7 +45,7 @@ export const openDatabase = async () => {
 
 export const writeDatabase = async (database: Database) => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: '_database.json',
     Body: JSON.stringify(database),
   };
@@ -61,7 +61,7 @@ export const writeDatabase = async (database: Database) => {
 
 export const writeFolder = async (key: string) => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: key,
   };
   try {
@@ -76,7 +76,7 @@ export const writeFolder = async (key: string) => {
 
 export const writeFile = async (key: string, data: Buffer) => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: key,
     Body: data,
   };
@@ -92,7 +92,7 @@ export const writeFile = async (key: string, data: Buffer) => {
 
 export const loadFile = async (key: string) => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: key,
   };
   try {
@@ -108,7 +108,7 @@ export const loadFile = async (key: string) => {
 
 export const deleteFile = async (key: string) => {
   const input = {
-    Bucket: process.env.AWS_BUCKET,
+    Bucket: process.env.AMAZON_BUCKET,
     Key: key,
   };
   try {
