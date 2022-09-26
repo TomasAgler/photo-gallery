@@ -11,6 +11,7 @@ import {
 import { CustomProps } from '../../types/pages';
 import { ItemList } from '../../components/item-list/item-list.component';
 import { isUserAllowed } from '../../utils/auth';
+import Head from 'next/head';
 
 export const getServerSideProps = withIronSessionSsr(async (context) => {
   const { req, locale } = context;
@@ -34,6 +35,9 @@ const Home: NextPage = ({ gallery }: CustomProps) => {
   const { t } = useTranslation('common');
   return (
     <>
+      <Head>
+        <title>{gallery?.title} - Fotogalerie</title>
+      </Head>
       <h1>{gallery?.title}</h1>
       <ItemList items={gallery?.items || []} gallery={String(gallery?.id)} />
     </>
