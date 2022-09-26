@@ -30,6 +30,7 @@ export const GalleryPhoto = ({
       alt={t('photo-placeholder')}
       width={data.size?.[size].width}
       height={data.size?.[size].height}
+      unoptimized
     />
   );
 };
