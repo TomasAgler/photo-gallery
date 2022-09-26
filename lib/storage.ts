@@ -2,26 +2,26 @@ import { IMAGE_LG, IMAGE_SM, IMAGE_THUMB } from '../utils/const';
 import { loadFile } from './s3';
 
 const storage: {
-  name: string;
+  id: string;
   gallery: string;
   content: { sm?: Buffer; lg?: Buffer; thumbnail?: Buffer };
 }[] = [];
 
 const downloadData = async (
-  name: string,
+  id: string,
   gallery: string,
   size: number | string,
   extension: string,
 ) => {
-  return loadFile(`${gallery}/${size}/${name}.${extension}`);
+  return loadFile(`${gallery}/${size}/${id}.${extension}`);
 };
 
-const storeData = async (name: string, gallery: string) => {
-  const contentThumb = await downloadData(name, gallery, IMAGE_THUMB, 'webp');
-  const contentSm = await downloadData(name, gallery, IMAGE_SM, 'webp');
-  const contentLg = await downloadData(name, gallery, IMAGE_LG, 'webp');
+const storeData = async (id: string, gallery: string) => {
+  const contentThumb = await downloadData(id, gallery, IMAGE_THUMB, 'webp');
+  const contentSm = await downloadData(id, gallery, IMAGE_SM, 'webp');
+  const contentLg = await downloadData(id, gallery, IMAGE_LG, 'webp');
   const newData = {
-    name,
+    id,
     gallery,
     content: { sm: contentSm, lg: contentLg, thumbnail: contentThumb },
   };
@@ -30,18 +30,16 @@ const storeData = async (name: string, gallery: string) => {
 };
 
 export const getObject = async (
-  name: string,
+  id: string,
   gallery: string,
   size: 'thumbnail' | 'sm' | 'lg' | 'original',
 ) => {
   if (size === 'original') {
-    return await downloadData(name, gallery, 'original', 'png');
+    return await downloadData(id, gallery, 'original', 'jpg');
   }
-  let storedData = storage.find(
-    (x) => x.name === name && x.gallery === gallery,
-  );
+  let storedData = storage.find((x) => x.id === id && x.gallery === gallery);
   if (!storedData) {
-    storedData = await storeData(name, gallery);
+    storedData = await storeData(id, gallery);
   }
   return storedData.content[size];
 };

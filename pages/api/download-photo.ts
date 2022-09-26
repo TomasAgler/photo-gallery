@@ -29,8 +29,8 @@ const downloadPhotoHandler = async (
     } else {
       const stream = Readable.from(buffer);
       res.writeHead(200, '', {
-        'Content-Type': 'image/png',
-        'Content-Disposition': 'attachment; filename=image.png',
+        'Content-Type': 'image/jpg',
+        'Content-Disposition': 'attachment; filename=image.jpg',
       });
       stream.pipe(res);
     }

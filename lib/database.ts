@@ -135,7 +135,7 @@ export const deleteGalleryItem = async (
     await deleteFile(`${data.galleryId}/${IMAGE_THUMB}/${data.itemId}.webp`);
     await deleteFile(`${data.galleryId}/${IMAGE_SM}/${data.itemId}.webp`);
     await deleteFile(`${data.galleryId}/${IMAGE_LG}/${data.itemId}.webp`);
-    await deleteFile(`${data.galleryId}/original/${data.itemId}.png`);
+    await deleteFile(`${data.galleryId}/original/${data.itemId}.jpg`);
   }
   const deletedItemOrder = existingItem.order;
   existingGallery.items = existingGallery.items.filter(
@@ -190,11 +190,14 @@ export const uploadImage = async (
     .resize(1920, 1080, { fit: sharp.fit.inside })
     .webp()
     .toBuffer({ resolveWithObject: true });
-  const bufferOrig = await sharp(input).png().toBuffer();
+  const bufferOrig = await sharp(input)
+    .resize(3840, 2160, { fit: sharp.fit.inside })
+    .jpeg()
+    .toBuffer();
   await writeFile(`${galleryId}/${IMAGE_THUMB}/${id}.webp`, imageThumb.data);
   await writeFile(`${galleryId}/${IMAGE_SM}/${id}.webp`, imageSm.data);
   await writeFile(`${galleryId}/${IMAGE_LG}/${id}.webp`, imageLg.data);
-  await writeFile(`${galleryId}/original/${id}.png`, bufferOrig);
+  await writeFile(`${galleryId}/original/${id}.jpg`, bufferOrig);
   const metadataThumb = imageThumb.info;
   const metadataSm = imageSm.info;
   const metadataLg = imageLg.info;
