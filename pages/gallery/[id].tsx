@@ -39,6 +39,7 @@ const Home: NextPage = ({ gallery }: CustomProps) => {
         <title>{`${gallery?.title} - Fotogalerie`}</title>
       </Head>
       <h1>{gallery?.title}</h1>
+      <h2>{gallery?.description}</h2>
       <ItemList items={gallery?.items || []} gallery={String(gallery?.id)} />
     </>
   );
