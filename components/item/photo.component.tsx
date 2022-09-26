@@ -31,7 +31,8 @@ export const GalleryPhoto = ({
       width={data.size?.[size].width}
       height={data.size?.[size].height}
       unoptimized
-      placeholder='empty'
+      placeholder='blur'
+      blurDataURL={`/api/content?gallery=${gallery}&photo=${id}&size=thumbnail`}
     />
   );
 };
