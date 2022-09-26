@@ -2,6 +2,7 @@ import { Dialog, AppBar, Toolbar, Button } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Link from 'next/link';
+import { isMobile } from 'react-device-detect';
 import { Item, ItemType } from '../../types/database';
 import { GalleryPhoto } from './photo.component';
 import {
@@ -52,8 +53,8 @@ export const ItemDetail = ({
       open={Boolean(item)}
       onKeyDown={keyHandler}
     >
-      <AppBar sx={{ position: 'relative' }}>
-        <Toolbar>
+      <AppBar sx={{ position: 'relative', paddingRight: '0 !important' }}>
+        <Toolbar variant={isMobile ? 'dense' : 'regular'}>
           <Button color='inherit' onClick={onClose}>
             {t('close')}
           </Button>

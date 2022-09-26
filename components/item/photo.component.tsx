@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { Photo } from '../../types/database';
 import Image, { ImageProps } from 'next/future/image';
 import { useTranslation } from 'next-i18next';
@@ -21,6 +22,7 @@ export const GalleryPhoto = ({
   ...restProps
 }: GalleryPhotoProps) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const computedSize = size === 'lg' && isMobile ? 'sm' : size;
   const { t } = useTranslation('common');
   if (!data) {
     return <div />;
@@ -28,7 +30,7 @@ export const GalleryPhoto = ({
   return (
     <Image
       {...restProps}
-      src={`/api/content?gallery=${gallery}&photo=${id}&size=${size}`}
+      src={`/api/content?gallery=${gallery}&photo=${id}&size=${computedSize}`}
       alt={t('photo-placeholder')}
       width={dimensions.width}
       height={dimensions.height}
@@ -36,8 +38,8 @@ export const GalleryPhoto = ({
       placeholder='empty'
       onLoadingComplete={() =>
         setDimensions({
-          width: data.size?.[size].width,
-          height: data.size?.[size].height,
+          width: data.size?.[computedSize].width,
+          height: data.size?.[computedSize].height,
         })
       }
       style={{
