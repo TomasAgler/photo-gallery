@@ -137,6 +137,7 @@ export const deleteGalleryItem = async (
     await deleteFile(`${data.galleryId}/${IMAGE_LG}/${data.itemId}.webp`);
     await deleteFile(`${data.galleryId}/original/${data.itemId}.png`);
   }
+  const deletedItemOrder = existingItem.order;
   existingGallery.items = existingGallery.items.filter(
     (x) => x.id !== data.itemId,
   );
@@ -146,6 +147,15 @@ export const deleteGalleryItem = async (
   ) {
     existingGallery.titlePhoto = undefined;
   }
+  const newItems = [];
+  for (let i = 0; i < existingGallery.items.length; i++) {
+    const item = existingGallery.items[i];
+    if (item.order > deletedItemOrder) {
+      item.order = item.order - 1;
+    }
+    newItems.push(item);
+  }
+  existingGallery.items = newItems;
 
   database.galleries = database.galleries.filter(
     (x) => x.id !== data.galleryId,

@@ -31,6 +31,7 @@ export const GalleryPhoto = ({
       width={data.size?.[size].width}
       height={data.size?.[size].height}
       unoptimized
+      placeholder='empty'
     />
   );
 };
