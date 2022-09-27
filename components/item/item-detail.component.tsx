@@ -59,11 +59,13 @@ export const ItemDetail = ({
             {t('close')}
           </Button>
           <Box sx={{ ml: 2, flex: 1 }} />
-          <Link
-            href={`/api/download-photo?gallery=${gallery}&photo=${item?.id}`}
-          >
-            <Button color='inherit'>{t('save')}</Button>
-          </Link>
+          {item && item.type === ItemType.Photo && (
+            <Link
+              href={`/api/download-photo?gallery=${gallery}&photo=${item?.id}`}
+            >
+              <Button color='inherit'>{t('save')}</Button>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
       {item && (
